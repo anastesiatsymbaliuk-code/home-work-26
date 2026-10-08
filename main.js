@@ -1,71 +1,60 @@
-const products = [
-  { name: "Ноутбук", price: 30000, inStock: true },
-  { name: "Миша", price: 800, inStock: false },
-  { name: "Клавіатура", price: 2500, inStock: true },
-  { name: "Килимок", price: 300, inStock: true },
-];
+console.log('#9. JavaScript homework example file')
 
-let filterChip = "all"; // all, inStock, notInStock
+/*
+ * #1
+ *
+ * Задача: Відстежування кліку на кнопку та виведення повідомлення
+ * Мета: Розробити функцію, яка призначає обробник події кліку на кнопку з певним ID і виводить у консоль заздалегідь визначене повідомлення при кожному кліку на кнопку.
+ *
+ * Вимоги:
+ * 1. Функція має приймати два параметри:
+ *    - buttonId (рядок) - ID кнопки, на яку потрібно встановити обробник події.
+ *    - message (рядок) - повідомлення, яке буде виводитись у консоль при кліку на кнопку.
+ * 2. Функція має знайти кнопку за допомогою buttonId і призначити їй обробник події кліку.
+ * 3. При кліку на кнопку у консоль має виводитись задане message.
+ * 4. Функція має бути експортована для подальшого використання і тестування.
+ *
+ */
 
-const list = document.querySelector("ul");
+import {handleButtonClick} from './test.js';
+// Демонстрація використання функції (припустимо, що HTML містить кнопку з ID 'myButton')
+handleButtonClick('myButton', 'Button clicked!');
 
-const renderProducts = () => {
-  list.innerHTML = "";
+/*
+ * #2
+ *
+ * Задача: Розробка функції відстеження позиції курсору миші
+ * Мета: Створити функцію trackMousePosition, яка встановлює обробник події для відстеження руху миші по документу та виводить в консоль координати курсору миші (X та Y).
+ *
+ * Вимоги до реалізації:
+ * 1. Функціональність: Функція має відслідковувати рух миші по документу. При кожному русі миші функція має виводити в консоль координати clientX та clientY, 
+ * які представляють позицію курсору відносно вікна переглядача.
+ * 2. Реєстрація обробника події: Функція має використовувати document.addEventListener для реєстрації обробника події mousemove.
+ * 3. Вивід даних: При спрацьовуванні події mousemove, функція має виводити рядок у форматі `"Mouse X: [X], Mouse Y: [Y]"`, де `[X]` та `[Y]` 
+ * - це відповідні координати курсору миші.
+ *
+ */
 
-  const filteredProducts = products.filter((item) => {
-    if (filterChip === "all") {
-      return true;
-    } else if (filterChip === "inStock") {
-      if (item.inStock === true) {
-        return true;
-      } else {
-        return false;
-      }
-    } else if (filterChip === "notInStock") {
-      if (item.inStock === true) {
-        return false;
-      } else {
-        return true;
-      }
-    }
-  });
+import {trackMousePosition} from './test.js';
+trackMousePosition();
 
-  filteredProducts.forEach((item) => {
-    const product = `
-    <li class="product">
-      <h6>${item.name}</h6>
-      <p>Price: ${item.price}</p>
-      <p>In stock: ${item.inStock ? "Yes" : "No"}
-    </li>
-  `;
-    list.insertAdjacentHTML("beforeend", product);
-  });
-};
+/*
+ * #3
+ *
+ * Задача: Реалізація делегування подій для відстеження кліків на елементах списку
+ * Мета: Створити функцію setupEventDelegation, яка дозволить встановити обробник подій на весь список, замість окремих елементів `<li>`. 
+ * Функція повинна відстежувати кліки на елементах <li> у межах заданого списку і логувати текст "Item clicked: [Текст Елемента]", де "[Текст Елемента]" - це текст клікнутого елемента `<li>`, в консоль.
+ *
+ * Вимоги до реалізації:
+ * 1. Вибір елемента списку: Функція повинна приймати селектор CSS як аргумент, що вказує на елемент списку `<ul>` або `<ol>`, до якого буде застосовано делегування подій.
+ * 2. Встановлення обробника подій: Використовуючи метод addEventListener, функція має додати обробник для події `click` на весь список. 
+ * Обробник повинен спрацьовувати при кліку на будь-який з елементів `<li>` у цьому списку.
+ * 3. Логування кліків: Коли елемент <li> клікнуто, функція має вивести у консоль повідомлення у форматі "Item clicked: [Текст Елемента]", де "[Текст Елемента]" має бути текстом клікнутого елемента <li>. 
+ * Текст елемента має бути обрізаним trim(), щоб видалити зайві пробіли на початку та в кінці.
+ * 
+ * // Експорт функції для використання та тестування
+ * //export { handleButtonClick, trackMousePosition, setupEventDelegation }
+ */
 
-renderProducts();
-
-const inStockBtn = document.querySelector("#inStock");
-const allBtn = document.querySelector("#all");
-const notInStockBtn = document.querySelector("#notInStock");
-
-const handleStockButtonClick = () => {
-  filterChip = "inStock";
-  console.log(filterChip);
-  renderProducts();
-};
-
-const handleAllButtonClick = () => {
-  filterChip = "all";
-  console.log(filterChip);
-  renderProducts();
-};
-
-const handleNotInStockButtonClick = () => {
-  filterChip = "notInStock";
-  console.log(filterChip);
-  renderProducts();
-};
-
-inStockBtn.addEventListener("click", handleStockButtonClick);
-allBtn.addEventListener("click", handleAllButtonClick);
-notInStockBtn.addEventListener("click", handleNotInStockButtonClick);
+import {setupEventDelegation} from './test.js';
+setupEventDelegation("highlight");
